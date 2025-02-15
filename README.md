@@ -19,7 +19,7 @@ Clona el repositorio e instala las dependencias:
 
 ```sh
  git clone https://github.com/tomii03/challenge.git
- cd tienda-articulos
+ cd challenge-global
  npm install  # o yarn install
 ```
 
