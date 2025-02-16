@@ -1,22 +1,26 @@
-"use client"
+"use client";
 
-import { Button } from "@/components/ui/button"
-import { ScrollArea } from "@/components/ui/scroll-area"
+import { Button } from "@/components/ui/button";
+import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 
 interface CategoryFilterProps {
-  categories: string[]
-  selectedCategory: string
-  onChange: (category: string) => void
+  categories: string[];
+  selectedCategory: string;
+  onChange: (category: string) => void;
 }
 
-export function CategoryFilter({ categories, selectedCategory, onChange }: CategoryFilterProps) {
+export function CategoryFilter({
+  categories,
+  selectedCategory,
+  onChange,
+}: CategoryFilterProps) {
   return (
-    <ScrollArea className="w-full">
-      <div className="flex gap-2 pb-4">
+    <ScrollArea className="w-full" type="scroll">
+      <div className="flex space-x-4 pb-4">
         <Button
           variant={selectedCategory === "all" ? "default" : "outline"}
           onClick={() => onChange("all")}
-          className="whitespace-nowrap"
+          className="shrink-0"
         >
           Todas las categorías
         </Button>
@@ -25,12 +29,16 @@ export function CategoryFilter({ categories, selectedCategory, onChange }: Categ
             key={category}
             variant={selectedCategory === category ? "default" : "outline"}
             onClick={() => onChange(category)}
-            className="whitespace-nowrap"
+            className="shrink-0"
           >
             {category}
           </Button>
         ))}
       </div>
+      <ScrollBar
+        orientation="horizontal"
+        className="opacity-0 sm:opacity-100"
+      />
     </ScrollArea>
-  )
-} 
+  );
+}

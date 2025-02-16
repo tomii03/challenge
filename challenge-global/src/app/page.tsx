@@ -11,7 +11,6 @@ import articles from "../../articles.json";
 
 const ITEMS_PER_PAGE = 8;
 
-// Obtener categorías únicas
 const uniqueCategories = Array.from(
   new Set(articles.map((article) => article.categoria))
 );
@@ -30,8 +29,6 @@ export default function Home() {
     categories: uniqueCategories,
   });
 
-  console.log("Home: rendering with currentPage:", currentPage);
-
   return (
     <main className="container mx-auto px-4 py-8">
       <div className="search-container">
@@ -42,7 +39,7 @@ export default function Home() {
           rem sed labore quaerat praesentium necessitatibus, ipsam voluptate
           dicta dolores quia!
         </h2>
-        <SearchBar onSearch={handleSearch} className="mt-6"/>
+        <SearchBar onSearch={handleSearch} className="mt-6" />
         <div className="mt-6">
           <CategoryFilter
             categories={uniqueCategories}
