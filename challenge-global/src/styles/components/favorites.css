@@ -89,12 +89,10 @@
 .favorites-item-button {
   gap: 0.5rem;
 }
-
 .favorites-item-remove {
   gap: 0.5rem;
   color: #ef4444;
 }
-
 .favorites-item-remove:hover {
   color: #dc2626;
 } 
