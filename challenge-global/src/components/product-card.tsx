@@ -2,16 +2,13 @@
 "use client";
 
 import "@/styles/components/product-card.css";
-import { useState } from "react";
-import { useCart } from "@/context/cart-context";
-import { useAppDispatch, useAppSelector } from "@/store/hooks";
-import { toggleFavorite } from "@/store/features/favorites-slice";
 import { Heart, Star } from "lucide-react";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { ProductDetailModal } from "./product-detail-modal";
 import { Toast } from "@/components/ui/toast";
+import { useProductCard } from "@/hooks/use-product-card";
 
 interface ProductCardProps {
   id: number;
@@ -32,39 +29,15 @@ export function ProductCard({
   rating,
   categoria,
 }: ProductCardProps) {
-  const { addItem } = useCart();
-  const [notification, setNotification] = useState<{
-    message: string;
-    type: "cart" | "favorite" | null;
-  }>({ message: "", type: null });
-  const [showDetail, setShowDetail] = useState(false);
-  const dispatch = useAppDispatch();
-  const favorites = useAppSelector((state) => state.favorites.items);
-  const isFavorite = favorites.some((item: { id: number }) => item.id === id);
-
-  const handleAddToCart = () => {
-    addItem({ id, titulo, precio, imagen });
-    setNotification({
-      message: `${titulo} agregado al carrito`,
-      type: "cart",
-    });
-    setTimeout(() => {
-      setNotification({ message: "", type: null });
-    }, 3000);
-  };
-
-  const handleToggleFavorite = () => {
-    dispatch(toggleFavorite({ id, titulo, imagen }));
-    setNotification({
-      message: `${titulo} ${
-        isFavorite ? "eliminado de" : "agregado a"
-      } favoritos`,
-      type: "favorite",
-    });
-    setTimeout(() => {
-      setNotification({ message: "", type: null });
-    }, 3000);
-  };
+  const {
+    notification,
+    showDetail,
+    isFavorite,
+    setShowDetail,
+    handleAddToCart,
+    handleToggleFavorite,
+    clearNotification,
+  } = useProductCard({ id, titulo, precio, imagen });
 
   return (
     <>
@@ -136,7 +109,7 @@ export function ProductCard({
         <Toast
           message={notification.message}
           variant={notification.type}
-          onClose={() => setNotification({ message: "", type: null })}
+          onClose={clearNotification}
         />
       )}
     </>
