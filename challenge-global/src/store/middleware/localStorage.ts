@@ -1,5 +1,4 @@
 import { Middleware } from "@reduxjs/toolkit";
-import { RootState } from "../index";
 
 export const localStorageMiddleware: Middleware =
   (store) => (next) => (action) => {
