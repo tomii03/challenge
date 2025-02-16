@@ -46,16 +46,23 @@ interface ToastProps extends VariantProps<typeof toastVariants> {
   onClose: () => void
 }
 
-export function Toast({ message, onClose, variant }: ToastProps) {
+const Toast: React.FC<ToastProps & { children?: React.ReactNode }> = ({ 
+  message, 
+  onClose, 
+  variant, 
+  children 
+}) => {
   return (
     <div className={toastVariants({ variant })}>
       <span>{message}</span>
+      {children} 
       <button onClick={onClose} className="text-current hover:opacity-80">
         <X className="h-4 w-4" />
       </button>
     </div>
-  )
-}
+  );
+};
+
 
 const ToastAction = React.forwardRef<
   React.ElementRef<typeof ToastPrimitives.Action>,
